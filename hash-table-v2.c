@@ -38,7 +38,7 @@ struct hash_table_v2 *hash_table_v2_create()
 		struct hash_table_entry *entry = &hash_table->entries[i];
 		SLIST_INIT(&entry->list_head);
 		// initialize lock
-		pthread_mutex_init(&entry->lock, NULL);
+		//pthread_mutex_init(&entry->lock, NULL);
 	}
 	return hash_table;
 }
@@ -109,7 +109,6 @@ void hash_table_v2_add_entry(struct hash_table_v2 *hash_table,
 	list_entry->key = key;
 	list_entry->value = value;
 	SLIST_INSERT_HEAD(list_head, list_entry, pointers);
-
 	// unlock
 	error = pthread_mutex_unlock(&hash_table_entry->lock);
 	if (error != 0)

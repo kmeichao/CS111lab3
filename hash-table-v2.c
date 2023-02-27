@@ -86,6 +86,9 @@ void hash_table_v2_add_entry(struct hash_table_v2 *hash_table,
 	struct hash_table_entry *hash_table_entry = get_hash_table_entry(hash_table, key);
 	// lock the mutex on the hash table entry
 	int error = pthread_mutex_lock(&hash_table_entry->lock);
+	if (error != 0) {
+		exit(error);
+	}
 	struct list_head *list_head = &hash_table_entry->list_head;
 	struct list_entry *list_entry = get_list_entry(hash_table, key, list_head);
 
